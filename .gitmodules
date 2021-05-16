@@ -1,0 +1,3 @@
+[submodule "contrib/cw-sdk-python"]
+	path = contrib/cw-sdk-python
+	url = http://github.com/cryptowatch/cw-sdk-python
