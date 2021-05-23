@@ -20,23 +20,13 @@ db = mongo_client['cbpro']
 trade_collection = db['ethusd']
 
 
-class cbWebsocketClient(cbpro.WebsocketClient):
-    def on_open(self):
-        self.url = 'wss://ws-feed.pro.coinbase.com'
-        self.products = ['ETH-USD']
-        self.mongo_collection = trade_collection
-        self.channels = ['ticker']
-        self.message_count = 0
-        #self.should_print = True
-
-    def on_message(self, msg):
-        self.message_count += 1
-        pprint(msg)
-        if 'price' in msg and 'type' in msg:
-            print(f"type: {msg['type']} - {msg['price']}")
-
-    def on_close(self):
-        logger.info('Closing websocket.')
+class CoinbaseSocket(cbpro.WebsocketClient):
+    def __init__(self, base, quote):
+        self.subscribe_msg = {
+            "type": "subscribe",
+            "product_ids": [f"{base}-{quote}"],
+            "channels": ["ticker"]
+        }
 
 
 if __name__ == '__main__':
