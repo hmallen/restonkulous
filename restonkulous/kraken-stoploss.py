@@ -2,13 +2,6 @@ import json
 import time
 from websocket import create_connection
 
-
-class KrakenSocket:
-
-    def __init__(self):
-        pass
-
-
 for i in range(3):
     try:
         ws = create_connection("wss://ws.kraken.com")
